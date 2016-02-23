@@ -15,10 +15,14 @@ A Clojure library designed to use DBUtil3.
 ### precompile SQL ###
 
 ```clojure
-(db-prepare dbconn "select  * from table where id = ?")
+(db-prepare dbconn "select  * from table where id = :id")
+(db-prepare dbconn "insert into table values (:id, :count, :text)")
 ```
 
+or
+
 ```clojure
+(db-prepare dbconn "select  * from table where id = ?")
 (db-prepare dbconn "insert into table values (?, ?, ?)")
 ```
 
@@ -26,11 +30,23 @@ A Clojure library designed to use DBUtil3.
 ### execute query ###
 
 ```clojure
+(db-query dbconn {"id" 3})
+```
+
+or
+
+```clojure
 (db-query dbconn [3])
 ```
 
 
 ### execute update ###
+
+```clojure
+(db-update dbconn {"id" 3, "count" 4, "text" "data"})
+```
+
+or
 
 ```clojure
 (db-update dbconn [3 4 "data"])
